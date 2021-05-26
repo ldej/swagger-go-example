@@ -9,3 +9,6 @@ install_deps:
 
 swagger:
 	swagger generate spec -o ./swagger/swagger.json --scan-models
+
+serve:
+	swagger serve ./swagger/swagger.json

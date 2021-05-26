@@ -52,7 +52,6 @@ type _ struct {
 //   200: ThingResponse
 //   404: ErrorResponse
 //   500: ErrorResponse
-// Get a thing
 func (s *Server) GetThing(w http.ResponseWriter, r *http.Request) {
 	// Your implementation here
 }
