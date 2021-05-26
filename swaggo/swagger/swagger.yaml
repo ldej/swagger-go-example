@@ -1,0 +1,220 @@
+basePath: /api/v1
+definitions:
+  CreateThing:
+    properties:
+      name:
+        description: The name for a thing
+        example: Some name
+        type: string
+      value:
+        description: The value for a thing
+        example: Some value
+        type: string
+    required:
+    - name
+    - value
+    type: object
+  ErrorResponse:
+    properties:
+      error:
+        example: An error occurred
+        type: string
+    type: object
+  ThingResponse:
+    properties:
+      created:
+        description: The time a thing was created
+        example: "2021-05-25T00:53:16.535668Z"
+        format: date-time
+        type: string
+      name:
+        description: The Name of a thing
+        example: Some name
+        type: string
+      updated:
+        description: The last time a thing was updated
+        example: "2021-05-25T00:53:16.535668Z"
+        format: date-time
+        type: string
+      uuid:
+        description: The UUID of a thing
+        example: 6204037c-30e6-408b-8aaa-dd8219860b4b
+        type: string
+      value:
+        description: The Value of a thing
+        example: Some value
+        type: string
+    type: object
+  ThingsResponse:
+    properties:
+      limit:
+        format: int64
+        type: integer
+      page:
+        format: int64
+        type: integer
+      things:
+        items:
+          $ref: '#/definitions/ThingResponse'
+        type: array
+      total:
+        format: int64
+        type: integer
+    type: object
+  UpdateThing:
+    properties:
+      value:
+        description: The new value for a thing
+        example: Update value
+        type: string
+    required:
+    - value
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@ldej.nl
+    name: Laurence de Jong
+    url: https://ldej.nl/
+  description: A thing server
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: A thing server
+  version: "1.0"
+paths:
+  /thing:
+    get:
+      description: This is the description for listing things. Which can be longer.
+      operationId: list-things
+      parameters:
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      - description: Limit (max 100)
+        in: query
+        name: limit
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ThingsResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: This is the summary for listing things
+      tags:
+      - Thing
+  /thing/{uuid}:
+    delete:
+      description: This is the description for deleting a thing. Which can be longer.
+      operationId: delete-thing
+      parameters:
+      - description: The UUID of a thing
+        in: path
+        name: uuid
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: This is the summary for deleting a thing
+      tags:
+      - Thing
+    get:
+      description: This is the description for getting a thing by its UUID. Which
+        can be longer.
+      operationId: get-thing
+      parameters:
+      - description: The UUID of a thing
+        in: path
+        name: uuid
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ThingResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: This is the summary for getting a thing by its UUID
+      tags:
+      - Thing
+    put:
+      description: This is the description for updating a thing. Which can be longer.
+      operationId: update-thing
+      parameters:
+      - description: The UUID of a thing
+        in: path
+        name: uuid
+        required: true
+        type: string
+      - description: The body to update a thing
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/UpdateThing'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ThingResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: This is the summary for updating a thing
+      tags:
+      - Thing
+  /thing/new:
+    post:
+      description: This is the description for creating a thing. Which can be longer.
+      operationId: create-thing
+      parameters:
+      - description: The body to create a thing
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/CreateThing'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ThingResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      summary: This is the summary for creating a thing
+      tags:
+      - Thing
+swagger: "2.0"

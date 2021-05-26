@@ -1,0 +1,353 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Documentation of the thing API.",
+    "title": "A thing server.",
+    "contact": {
+      "name": "Laurence de Jong",
+      "url": "https://ldej.nl/",
+      "email": "support@ldej.nl"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    },
+    "version": "1.0.0"
+  },
+  "host": "localhost:8080",
+  "basePath": "/api/v1",
+  "paths": {
+    "/thing/": {
+      "get": {
+        "description": "This is the description for listing things. Which can be longer.",
+        "tags": [
+          "Thing"
+        ],
+        "summary": "This is the summary for listing things",
+        "operationId": "list-things",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "description": "Page",
+            "name": "Page",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "description": "Limit (max 100)",
+            "name": "Limit",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ThingsResponse",
+            "schema": {
+              "$ref": "#/definitions/ThingsResponse"
+            }
+          },
+          "404": {
+            "description": "ErrorResponse",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "ErrorResponse",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/thing/new": {
+      "post": {
+        "description": "This is the description for creating a thing. Which can be longer.",
+        "tags": [
+          "Thing"
+        ],
+        "summary": "This is the summary for creating a thing",
+        "operationId": "create-thing",
+        "parameters": [
+          {
+            "description": "The body to create a thing",
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateThing"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ThingResponse",
+            "schema": {
+              "$ref": "#/definitions/ThingResponse"
+            }
+          },
+          "404": {
+            "description": "ErrorResponse",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "ErrorResponse",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/thing/{uuid}": {
+      "get": {
+        "description": "This is the description for getting a thing by its UUID. Which can be longer.",
+        "tags": [
+          "Thing"
+        ],
+        "summary": "This is the summary for getting a thing by its UUID",
+        "operationId": "get-thing",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "UUID",
+            "description": "The UUID of a thing",
+            "name": "uuid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ThingResponse",
+            "schema": {
+              "$ref": "#/definitions/ThingResponse"
+            }
+          },
+          "404": {
+            "description": "ErrorResponse",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "ErrorResponse",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "This is the description for updating a thing. Which can be longer.",
+        "tags": [
+          "Thing"
+        ],
+        "summary": "This is the summary for updating a thing",
+        "operationId": "update-thing",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "UUID",
+            "description": "The UUID of a thing",
+            "name": "uuid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "The body to update a thing",
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateThing"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ThingResponse",
+            "schema": {
+              "$ref": "#/definitions/ThingResponse"
+            }
+          },
+          "404": {
+            "description": "ErrorResponse",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "ErrorResponse",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "This is the description for deleting a thing. Which can be longer.",
+        "produces": [
+          "text/plain"
+        ],
+        "tags": [
+          "Thing"
+        ],
+        "summary": "This is the summary for deleting a thing",
+        "operationId": "delete-thing",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "UUID",
+            "description": "The UUID of a thing",
+            "name": "uuid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "500": {
+            "description": "ErrorResponse",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CreateThing": {
+      "type": "object",
+      "required": [
+        "name",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "description": "The name for a thing",
+          "type": "string",
+          "x-go-name": "Name",
+          "example": "Some name"
+        },
+        "value": {
+          "description": "The value for a thing",
+          "type": "string",
+          "x-go-name": "Value",
+          "example": "Some value"
+        }
+      },
+      "x-go-package": "github.com/ldej/swagger-go-example/goswagger"
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "description": "The error message",
+          "type": "string",
+          "x-go-name": "Error",
+          "example": "An error occurred"
+        }
+      },
+      "x-go-package": "github.com/ldej/swagger-go-example/goswagger"
+    },
+    "ThingResponse": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "description": "The time a thing was created",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Created",
+          "example": "2021-05-25T00:53:16.535668Z"
+        },
+        "name": {
+          "description": "The Name of a thing",
+          "type": "string",
+          "x-go-name": "Name",
+          "example": "Some name"
+        },
+        "updated": {
+          "description": "The last time a thing was updated",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Updated",
+          "example": "2021-05-25T00:53:16.535668Z"
+        },
+        "uuid": {
+          "description": "The UUID of a thing",
+          "type": "string",
+          "x-go-name": "UUID",
+          "example": "6204037c-30e6-408b-8aaa-dd8219860b4b"
+        },
+        "value": {
+          "description": "The Value of a thing",
+          "type": "string",
+          "x-go-name": "Value",
+          "example": "Some value"
+        }
+      },
+      "x-go-package": "github.com/ldej/swagger-go-example/goswagger"
+    },
+    "ThingsResponse": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Limit"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Page"
+        },
+        "things": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ThingResponse"
+          },
+          "x-go-name": "Things"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/ldej/swagger-go-example/goswagger"
+    },
+    "UpdateThing": {
+      "type": "object",
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "description": "The new value for a thing",
+          "type": "string",
+          "x-go-name": "Value",
+          "example": "Updated value"
+        }
+      },
+      "x-go-package": "github.com/ldej/swagger-go-example/goswagger"
+    }
+  }
+}
