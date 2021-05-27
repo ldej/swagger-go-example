@@ -6,15 +6,20 @@ import (
 )
 
 type ThingResponse struct {
-	UUID  string `json:"uuid" example:"6204037c-30e6-408b-8aaa-dd8219860b4b"` // The UUID of a thing
-	Name  string `json:"name" example:"Some name"`                            // The Name of a thing
-	Value string `json:"value" example:"Some value"`                          // The Value of a thing
-
-	Updated time.Time `json:"updated" example:"2021-05-25T00:53:16.535668Z" format:"date-time"` // The last time a thing was updated
-	Created time.Time `json:"created" example:"2021-05-25T00:53:16.535668Z" format:"date-time"` // The time a thing was created
+	// The UUID of a thing
+	UUID string `json:"uuid" example:"6204037c-30e6-408b-8aaa-dd8219860b4b"`
+	// The Name of a thing
+	Name string `json:"name" example:"Some name"`
+	// The Value of a thing
+	Value string `json:"value" example:"Some value"`
+	// The last time a thing was updated
+	Updated time.Time `json:"updated" example:"2021-05-25T00:53:16.535668Z" format:"date-time"`
+	// The time a thing was created
+	Created time.Time `json:"created" example:"2021-05-25T00:53:16.535668Z" format:"date-time"`
 } // @name ThingResponse
 
 type ErrorResponse struct {
+	// The error message
 	Error string `json:"error" example:"An error occurred"`
 } // @name ErrorResponse
 
@@ -34,8 +39,10 @@ func (s *Server) GetThing(w http.ResponseWriter, r *http.Request) {
 }
 
 type CreateThing struct {
-	Name  string `json:"name" validate:"required" example:"Some name"`   // The name for a thing
-	Value string `json:"value" validate:"required" example:"Some value"` // The value for a thing
+	// The name for a thing
+	Name string `json:"name" validate:"required" example:"Some name"`
+	// The value for a thing
+	Value string `json:"value" validate:"required" example:"Some value"`
 } // @name CreateThing
 
 // CreateThing godoc
@@ -53,7 +60,8 @@ func (s *Server) CreateThing(w http.ResponseWriter, r *http.Request) {
 }
 
 type UpdateThing struct {
-	Value string `json:"value" validate:"required" example:"Update value"` // The new value for a thing
+	// The new value for a thing
+	Value string `json:"value" validate:"required" example:"Update value"`
 } // @name UpdateThing
 
 // UpdateThing godoc

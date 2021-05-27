@@ -256,6 +256,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "error": {
+                    "description": "The error message",
                     "type": "string",
                     "example": "An error occurred"
                 }

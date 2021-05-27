@@ -17,6 +17,7 @@ definitions:
   ErrorResponse:
     properties:
       error:
+        description: The error message
         example: An error occurred
         type: string
     type: object
