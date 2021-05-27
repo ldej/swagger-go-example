@@ -131,8 +131,9 @@ paths:
       tags:
       - Thing
     get:
-      description: This is the description for getting a thing by its UUID. Which
-        can be longer.
+      description: |-
+        This is the description for getting a thing by its UUID. Which can be longer,
+        and can continue over multiple lines
       operationId: get-thing
       parameters:
       - description: The UUID of a thing

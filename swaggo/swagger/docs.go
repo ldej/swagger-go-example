@@ -114,7 +114,7 @@ var doc = `{
         },
         "/thing/{uuid}": {
             "get": {
-                "description": "This is the description for getting a thing by its UUID. Which can be longer.",
+                "description": "This is the description for getting a thing by its UUID. Which can be longer,\nand can continue over multiple lines",
                 "tags": [
                     "Thing"
                 ],
